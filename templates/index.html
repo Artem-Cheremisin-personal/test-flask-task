@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cashabl - Cash Transfer Service</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            color: #333;
+        }
+
+        .navbar {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 1rem 0;
+            box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .navbar .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 800;
+            color: #667eea;
+            text-decoration: none;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: #333;
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: #667eea;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        .hero {
+            text-align: center;
+            padding: 3rem 0;
+            color: white;
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            font-weight: 800;
+            margin-bottom: 1rem;
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+        }
+
+        .hero p {
+            font-size: 1.3rem;
+            margin-bottom: 3rem;
+            opacity: 0.9;
+        }
+
+        .services {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .service-card {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 2.5rem;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .service-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
+        }
+
+        .service-icon {
+            font-size: 3rem;
+            color: #667eea;
+            margin-bottom: 1.5rem;
+            text-align: center;
+        }
+
+        .service-card h3 {
+            font-size: 1.8rem;
+            margin-bottom: 1rem;
+            color: #333;
+            text-align: center;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+            color: #333;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 1rem;
+            border: 2px solid #e1e8ed;
+            border-radius: 12px;
+            font-size: 1rem;
+            transition: border-color 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .form-group input:focus {
+            outline: none;
+            border-color: #667eea;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        }
+
+        .btn {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            padding: 1rem 2rem;
+            border-radius: 12px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            width: 100%;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(102, 126, 234, 0.3);
+        }
+
+        .btn:active {
+            transform: translateY(0);
+        }
+
+        .alert {
+            padding: 1rem;
+            border-radius: 12px;
+            margin-bottom: 1rem;
+            font-weight: 500;
+        }
+
+        .alert-success {
+            background-color: #d4edda;
+            border: 1px solid #c3e6cb;
+            color: #155724;
+        }
+
+        .alert-error {
+            background-color: #f8d7da;
+            border: 1px solid #f5c6cb;
+            color: #721c24;
+        }
+
+        .transactions-link {
+            text-align: center;
+            margin-top: 3rem;
+        }
+
+        .transactions-link a {
+            color: white;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1.1rem;
+            padding: 0.8rem 2rem;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 25px;
+            backdrop-filter: blur(10px);
+            transition: all 0.3s ease;
+        }
+
+        .transactions-link a:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: translateY(-2px);
+        }
+
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-top: 3rem;
+        }
+
+        .feature {
+            text-align: center;
+            color: white;
+        }
+
+        .feature-icon {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+            color: rgba(255, 255, 255, 0.8);
+        }
+
+        .feature h4 {
+            font-size: 1.2rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .feature p {
+            font-size: 0.9rem;
+            opacity: 0.8;
+        }
+
+        @media (max-width: 768px) {
+            .services {
+                grid-template-columns: 1fr;
+            }
+            
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+            
+            .container {
+                padding: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="container">
+            <a href="/" class="logo">
+                <i class="fas fa-coins"></i> Cashabl
+            </a>
+            <ul class="nav-links">
+                <li><a href="/">Home</a></li>
+                <li><a href="/transactions">Transactions</a></li>
+                <li><a href="#about">About</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="container">
+        <div class="hero">
+            <h1><i class="fas fa-exchange-alt"></i> Cashabl Cash Transfer</h1>
+            <p>Secure, fast, and reliable cash transfer service powered by AWS</p>
+            
+            <div class="feature-grid">
+                <div class="feature">
+                    <div class="feature-icon"><i class="fas fa-shield-alt"></i></div>
+                    <h4>Secure</h4>
+                    <p>Bank-level security with AWS encryption</p>
+                </div>
+                <div class="feature">
+                    <div class="feature-icon"><i class="fas fa-bolt"></i></div>
+                    <h4>Fast</h4>
+                    <p>Instant transfers and withdrawals</p>
+                </div>
+                <div class="feature">
+                    <div class="feature-icon"><i class="fas fa-globe"></i></div>
+                    <h4>Reliable</h4>
+                    <p>99.9% uptime with AWS infrastructure</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Flash Messages -->
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                {% for category, message in messages %}
+                    <div class="alert alert-{{ 'success' if category == 'success' else 'error' }}">
+                        {{ message }}
+                    </div>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+
+        <div class="services">
+            <!-- Transfer Money Card -->
+            <div class="service-card">
+                <div class="service-icon">
+                    <i class="fas fa-arrow-up"></i>
+                </div>
+                <h3>Transfer Cash</h3>
+                <form method="POST" action="/transfer">
+                    <div class="form-group">
+                        <label for="amount">Amount ($)</label>
+                        <input type="number" 
+                               id="amount" 
+                               name="amount" 
+                               step="0.01" 
+                               min="0.01" 
+                               placeholder="Enter amount to transfer"
+                               required>
+                    </div>
+                    <div class="form-group">
+                        <label for="transaction_id">Transaction ID (Optional)</label>
+                        <input type="text" 
+                               id="transaction_id" 
+                               name="transaction_id" 
+                               placeholder="Leave blank for auto-generated ID">
+                    </div>
+                    <button type="submit" class="btn">
+                        <i class="fas fa-paper-plane"></i> Transfer Money
+                    </button>
+                </form>
+            </div>
+
+            <!-- Withdraw Money Card -->
+            <div class="service-card">
+                <div class="service-icon">
+                    <i class="fas fa-arrow-down"></i>
+                </div>
+                <h3>Withdraw Cash</h3>
+                <form method="POST" action="/withdraw">
+                    <div class="form-group">
+                        <label for="withdraw_id">Transaction ID</label>
+                        <input type="text" 
+                               id="withdraw_id" 
+                               name="withdraw_id" 
+                               placeholder="Enter transaction ID to withdraw"
+                               required>
+                    </div>
+                    <button type="submit" class="btn">
+                        <i class="fas fa-money-bill-wave"></i> Withdraw Cash
+                    </button>
+                </form>
+            </div>
+        </div>
+
+        <div class="transactions-link">
+            <a href="/transactions">
+                <i class="fas fa-list"></i> View All Transactions
+            </a>
+        </div>
+
+        <!-- Contact Section -->
+        <div id="contact" style="margin-top: 4rem; text-align: center; color: white;">
+            <h3 style="margin-bottom: 1rem; font-size: 1.8rem;">Contact Us</h3>
+            <p style="margin-bottom: 1rem; font-size: 1.1rem;">Have questions or need support?</p>
+            <div style="background: rgba(255, 255, 255, 0.1); padding: 1.5rem; border-radius: 15px; backdrop-filter: blur(10px); display: inline-block;">
+                <i class="fas fa-envelope" style="margin-right: 0.5rem; color: rgba(255, 255, 255, 0.8);"></i>
+                <a href="mailto:a.cheremisin11@gmail.com" style="color: white; text-decoration: none; font-weight: 600;">
+                    a.cheremisin11@gmail.com
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Auto-dismiss alerts after 5 seconds
+        setTimeout(function() {
+            const alerts = document.querySelectorAll('.alert');
+            alerts.forEach(alert => {
+                alert.style.transition = 'opacity 0.5s ease';
+                alert.style.opacity = '0';
+                setTimeout(() => alert.remove(), 500);
+            });
+        }, 5000);
+
+        // Form validation
+        document.querySelector('form[action="/transfer"]').addEventListener('submit', function(e) {
+            const amount = document.getElementById('amount').value;
+            if (parseFloat(amount) <= 0) {
+                e.preventDefault();
+                alert('Please enter a valid amount greater than 0');
+            }
+        });
+
+        document.querySelector('form[action="/withdraw"]').addEventListener('submit', function(e) {
+            const transactionId = document.getElementById('withdraw_id').value.trim();
+            if (!transactionId) {
+                e.preventDefault();
+                alert('Please enter a valid transaction ID');
+            }
+        });
+    </script>
+</body>
+</html>
