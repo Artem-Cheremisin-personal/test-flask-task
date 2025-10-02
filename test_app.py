@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-Test script for Payabl Flask Application
+ Test script for Payabl Flask Application
 This script tests the basic functionality without requiring AWS setup
 """
 
